@@ -1,0 +1,54 @@
+<root>
+	<config>
+	    <archivo>/home/gd90/log/gdpos.log</archivo>
+	    <submatchlevel>(0 o 1)</submatch> <!-- Especifica de donde se envía el texto para la subevaluación (0: toda la línea, 1: sólo el match inicial -->
+	    <lineasapliadas>2</lineasapliadas> <!-- Cantidad de líneas que se acumulan antes de enviar a validación -->
+	</config>
+	
+	<expresiones>
+		<check pattern="expresion regular a encontrar" match="function1(PARAM1, PARAM2)" PARAM1="expresión regular de la subcadena" PARAM2="expresión regular de la subcadena"></check>
+		<check pattern="expresion regular a encontrar" match="function2(PARAM1)" PARAM1="expresión regular de la subcadena"></check>
+		.
+        .
+        .
+    </expresiones>
+    <outpufile>
+        <prefijo>
+            RUN = createTestRun();
+	        fixState();
+	        Evm.sleep(1000);
+
+	        assertEventState(RUN, "ckrReadyState", pos.getEventName());
+	        
+	        copyModulesFromRemotePOS();
+	        
+	        DATA_COLLECT.mark();
+	        JOURNAL.mark();
+	        financialList = FINANCIAL.refresh();
+	        FISCAL.mark();
+	        DP.mark();
+	        GATEWAY.mark();
+	        SWITCH.mark();
+	        IXRETAIL.mark();
+	        ACEPTA.mark();
+
+	        var transactionNumber = pos.getTransactionNumber();	
+        </prefijo>
+        <postfijo>
+ 	        waitCashDrawer();
+        
+	        validateCheckerReadyState(RUN);
+        
+	        Evm.sleep(1000);
+        
+	        copyModulesFromRemotePOS();
+        
+	        reprocessModule(ACEPTA, DEFAULT_ACEPTA_FILTER_RECORDS);
+        
+	        processIdcreader();
+            .
+            .
+            .
+        </postfijo>
+    </outpufile>
+</root>
