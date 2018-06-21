@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<drjava version="drjava-20120818-r5686">
+  <project autorefresh="false" main="TailAndAction" root="" work="">
+    <createjar file=""/>
+    <source>
+      <file active="true" name="CheckClass.java" package="cencosud.com.qa.app" timestamp="17-Jun-2018 02:00:02">
+        <select from="159" to="225"/>
+        <scroll column="0" row="106"/>
+      </file>
+      <file name="TailAndAction.java" package="cencosud.com.qa.app" timestamp="17-Jun-2018 00:40:00">
+        <select from="159" to="225"/>
+        <scroll column="0" row="106"/>
+      </file>
+      <file name="ProcessLines.java" package="cencosud.com.qa.app" timestamp="17-Jun-2018 00:40:00">
+        <select from="159" to="225"/>
+        <scroll column="0" row="106"/>
+      </file>
+      <file name="ParamItem.java" package="cencosud.com.qa.app" timestamp="17-Jun-2018 00:40:00">
+        <select from="159" to="225"/>
+        <scroll column="0" row="106"/>
+      </file>
+      <file name="OutputFile.java" package="cencosud.com.qa.app" timestamp="17-Jun-2018 00:40:00">
+        <select from="159" to="225"/>
+        <scroll column="0" row="106"/>
+      </file>
+      <file name="LiveInputFile.java" package="cencosud.com.qa.app" timestamp="17-Jun-2018 00:40:00">
+        <select from="159" to="225"/>
+        <scroll column="0" row="106"/>
+      </file>
+      <file name="IReceptLine.java" package="cencosud.com.qa.app" timestamp="17-Jun-2018 00:40:00">
+        <select from="159" to="225"/>
+        <scroll column="0" row="106"/>
+      </file>
+      <file name="IOutputResult.java" package="cencosud.com.qa.app" timestamp="17-Jun-2018 00:40:00">
+        <select from="159" to="225"/>
+        <scroll column="0" row="106"/>
+      </file>
+      <file name="FullInputFile.java" package="cencosud.com.qa.app" timestamp="17-Jun-2018 00:40:00">
+        <select from="159" to="225"/>
+        <scroll column="0" row="106"/>
+      </file>
+      <file name="EOutputOperations.java" package="cencosud.com.qa.app" timestamp="17-Jun-2018 00:40:00">
+        <select from="159" to="225"/>
+        <scroll column="0" row="106"/>
+      </file>
+      <file name="ConversionItem.java" package="cencosud.com.qa.app" timestamp="17-Jun-2018 00:40:00">
+        <select from="159" to="225"/>
+        <scroll column="0" row="106"/>
+      </file>
+      <file name="TAAXmlFile.java" package="cencosud.com.qa.app" timestamp="17-Jun-2018 01:16:36">
+        <select from="159" to="225"/>
+        <scroll column="0" row="106"/>
+      </file>
+      <file name="Loader.java" package="cencosud.com.qa.app" timestamp="17-Jun-2018 01:45:52">
+        <select from="159" to="225"/>
+        <scroll column="0" row="106"/>
+      </file>
+    </source>
+    <included/>
+    <excluded/>
+    <collapsed/>
+    <classpath/>
+    <breakpoints/>
+    <watches/>
+    <bookmarks/>
+    <preferences/>
+  </project>
+</drjava>

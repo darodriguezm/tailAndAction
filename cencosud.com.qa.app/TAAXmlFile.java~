@@ -1,0 +1,46 @@
+package cencosud.com.qa.app;
+
+import java.util.*;
+
+/**
+ * 
+ */
+public class TAAXmlFile {
+
+	/**
+	 * Default constructor
+	 */
+	public TAAXmlFile() {
+	}
+
+	/**
+	 * 
+	 */
+	public HashMap<String, ConversionItem> hashConversionItem;
+
+	/**
+	 * 
+	 */
+	public String InputfilePath;
+
+	/**
+	 * 
+	 */
+	public Integer LineStacked;
+
+	/**
+	 * 
+	 */
+	public Integer mode;
+
+	/**
+	 * 
+	 */
+	public ArrayList<CheckClass> checksArray;
+
+
+
+
+
+
+}

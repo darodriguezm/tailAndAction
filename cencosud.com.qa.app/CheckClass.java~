@@ -1,0 +1,39 @@
+package cencosud.com.qa.app;
+
+import java.util.*;
+
+/**
+ * 
+ */
+public class CheckClass {
+
+	/**
+	 * Default constructor
+	 */
+	public CheckClass() {
+	}
+
+	/**
+	 * 
+	 */
+	public String pattern;
+
+	/**
+	 * 
+	 */
+	public String match;
+
+	/**
+	 * 
+	 */
+	public Integer subMatchLevel;
+
+	/**
+	 * 
+	 */
+	public HashMap<String, HashMap> parameters;
+
+
+
+
+}
