@@ -1,0 +1,218 @@
+﻿<root>
+	<config>
+	    <origin>/home/gd90/log/gdpos.log</origin>
+	    <linesstacked>1</linesstacked> <!-- Cantidad de líneas que se acumulan antes de enviar a validación -->
+	    <mode>0</mode> <!-- Define el modo de lectura del archivo de log de entrada: 0 monitoreo secuencial activada por cambios - 1 Lectura completa archivo estático -->
+	</config>
+	
+	<expressions>
+		<check pattern="Key\: \d+ Status\: \[0\] Input\:\s+\d+" match="keyboard.send(PARAM1, PARAM2)\r\n" submatchlevel="1" >
+		    <PARAM1 pattern="\d+$"/>
+		    <PARAM2 pattern="Key\: \d+" conv_id="1,2,3"/>
+		</check>
+		<check pattern="expresion regular a encontrar" match="function2(PARAM1)\r\n" submatchlevel="0" >
+		    <PARAM1 pattern="expresión regular de la subcadena" conv_id="*" /> <!-- * aplica toda la tabla de conversion -->
+		</check>
+		<check pattern="expresion regular a encontrar" match="function1(PARAM1, PARAM2, CONSTANTE)\r\n" submatchlevel="0" >
+		    <PARAM1 pattern="expresión regular de la subcadena" conv_id="6,7,8" />
+		    <PARAM2 pattern="expresión regular de la subcadena" />
+		</check>
+		<check pattern="Key\: 20303 Status\: \[0\] Input:\s+\d+" match="scanner.send(SCAN_SDT_EAN13, PARAM1)\r\n;" submatchlevel="1" >
+		    <PARAM1 pattern="\d+$" conv_id="6" />
+		</check>
+    </expressions>
+    <conversions>
+        <conv id="1" input="Key: 13" output="#ENTER;" />
+        <conv id="2" input="Key: 11" output="#ESCAPE;" />
+        <conv id="3" input="Key: 48" output="#TOTAL;" />
+        <conv id="4" input="116" output="#ITEM QUANTITY;" />
+        <conv id="5" input="25" output="#TOTAL;" />
+        <conv id="6" input="55" output="7" />
+        <conv id="7" input="56" output="8" />
+        <conv id="8" input="56" output="8" />
+        <conv id="9" input="7802225640510" output="ARTICULO_1" />
+        <conv id="10" input="7802575450093" output="ARTICULO_2" />
+        <conv id="11" input="4893767153258" output="ARTICULO_3" />
+        <conv id="12" input="02082001134517" output="ARTICULO_4" />
+        <conv id="13" input="7802150000328" output="ARTICULO_5" />
+        <conv id="14" input="7111719991781" output="ARTICULO_EXENTO" />
+        <conv id="15" input="2090000709650" output="ARTICULO_EXENTO_2" />
+        <conv id="16" input="2918090010008" output="ARTICULO_PESABLE_SISA_MADRE" />
+        <conv id="17" input="2955510000010" output="ARTICULO_PESABLE_SISA_0001" />
+        <conv id="18" input="2955510001000" output="ARTICULO_PESABLE_SISA_0100" />
+        <conv id="19" input="2955510009990" output="ARTICULO_PESABLE_SISA_0999" />
+        <conv id="20" input="2955510015946" output="ARTICULO_PESABLE_SISA_1594" />
+        <conv id="21" input="2955510030000" output="ARTICULO_PESABLE_SISA_3000" />
+        <conv id="22" input="2911474190006" output="ARTICULO_SISA" />
+    </conversions>
+    
+    <outpufile prename="output-file-num-" extension="js">
+        <automatic create_on="expresion regular" close_on="expresion regular" />
+        <header>
+            RUN = createTestRun();
+        	fixState();
+        	Evm.sleep(2000);
+        
+        	assertEventState(RUN, "ckrReadyState", pos.getEventName());
+        
+        	copyModulesFromRemotePOS();
+        
+        	DATA_COLLECT.mark();
+        	JOURNAL.mark();
+        	financialList = FINANCIAL.refresh();
+        	FISCAL.mark();
+        	DP.mark();
+        	GATEWAY.mark();
+        	SWITCH.mark();
+        	IXRETAIL.mark();
+        	ACEPTA.mark();
+        
+        	var transactionNumber = pos.getTransactionNumber();	
+        </header>
+        <footer>
+        	// DataCollect ----------------------------------------
+        
+        	//Imprime el codigo del data collect actual, en formato de Java Script.
+        	//Begin Automatic Code generation: Module = DataCollect Id = 1 TestCase = 128 Date = 220518 11:19:29
+        	var dataCollectBuffer = new RecordBuffer(new DataCollectFactory(), new Array( ));
+        	//End Automatic Code generation
+        
+        	RUN.weakAssertEqualsIgnoreRegEx("DataCollect", DEFAULT_DC_IGNORE_REGEX, dataCollectBuffer, DATA_COLLECT);
+        
+        
+        	// Journal ----------------------------------------
+        	//Begin Automatic Code generation: Module = Journal Id = 1 TestCase = 128 Date = 220518 11:19:29
+        	var journalBuffer = new RecordBuffer(new JournalFactory(), new Array( ));
+        	//End Automatic Code generation
+        		
+        	RUN.weakAssertEqualsIgnoreRegEx("Journal", JOURNAL_IGNORE_REGEX, journalBuffer, JOURNAL);
+        	
+        	// FinancialParameters ----------------------------------------
+        	var record;
+        	//Begin Automatic Code generation: Module = Financial Id = 1 TestCase = 128 Date = 220518 11:19:29
+        	//Bruto Actual(1)
+        	record = FinancialParameters.searchByCode(0,1, financialList);
+        	record.addTransactionCounter(1);
+        	record.addAmount(18488);
+        	//Total Bruto (5)
+        	record = FinancialParameters.searchByCode(1,1, financialList);
+        	record.addTransactionCounter(1);
+        	record.addItemCounter(4);
+        	record.addAmount(18488);
+        	//Desc. Auto. (27)
+        	record = FinancialParameters.searchByCode(3,4, financialList);
+        	record.addTransactionCounter(1);
+        	record.addItemCounter(1);
+        	record.addAmount(-2699);
+        	//REC CELU/TV (43)
+        	record = FinancialParameters.searchByCode(5,1, financialList);
+        	record.addTransactionCounter(1);
+        	record.addItemCounter(1);
+        	record.addAmount(3500);
+        	//EXENTO      (56)
+        	record = FinancialParameters.searchByCode(7,1, financialList);
+        	record.addTransactionCounter(1);
+        	record.addItemCounter(1);
+        	//NETO        (57)
+        	record = FinancialParameters.searchByCode(7,2, financialList);
+        	record.addTransactionCounter(1);
+        	record.addItemCounter(3);
+        	record.addAmount(1962);
+        	//TOT.EXENTO  (59)
+        	record = FinancialParameters.searchByCode(7,11, financialList);
+        	record.addTransactionCounter(1);
+        	record.addItemCounter(1);
+        	record.addAmount(3500);
+        	//TOT.NETO    (60)
+        	record = FinancialParameters.searchByCode(7,12, financialList);
+        	record.addTransactionCounter(1);
+        	record.addItemCounter(3);
+        	record.addAmount(12289);
+        	//TOTAL VENTAS(67)
+        	record = FinancialParameters.searchByCode(8,1, financialList);
+        	record.addTransactionCounter(1);
+        	record.addItemCounter(4);
+        	record.addAmount(15789);
+        	//ING. MANUAL (73)
+        	record = FinancialParameters.searchByCode(8,7, financialList);
+        	record.addTransactionCounter(1);
+        	record.addItemCounter(4);
+        	record.addAmount(18488);
+        	//VENTAS      (100)
+        	record = FinancialParameters.searchByCode(8,41, financialList);
+        	record.addTransactionCounter(1);
+        	record.addItemCounter(4);
+        	record.addAmount(15789);
+        	//REDONDEO    (110)
+        	record = FinancialParameters.searchByCode(8,52, financialList);
+        	record.addTransactionCounter(1);
+        	record.addItemCounter(1);
+        	record.addAmount(-1);
+        	//V/Neta Bol  (111)
+        	record = FinancialParameters.searchByCode(8,53, financialList);
+        	record.addTransactionCounter(1);
+        	record.addItemCounter(1);
+        	record.addAmount(10327);
+        	//Iva Boletas (112)
+        	record = FinancialParameters.searchByCode(8,54, financialList);
+        	record.addTransactionCounter(1);
+        	record.addItemCounter(1);
+        	record.addAmount(1962);
+        	//Total Medios(151)
+        	record = FinancialParameters.searchByCode(10,1, financialList);
+        	record.addTransactionCounter(1);
+        	record.addItemCounter(1);
+        	record.addAmount(15789);
+        	//EFECTIVO    (165)
+        	record = FinancialParameters.searchByCode(11,1, financialList);
+        	record.addTransactionCounter(1);
+        	record.addItemCounter(1);
+        	record.addAmount(15789);
+        	//End Automatic Code generation
+        
+        	RUN.weakAssertEqualsList("Financial", DEFAULT_FINANCIAL_IGNORE_LIST, financialList, FINANCIAL);
+        
+        	// Fiscal ----------------------------------------
+        	//Begin Automatic Code generation: Module = Fiscal Id = 1 TestCase = 128 Date = 220518 11:19:29
+        	var fiscalBuffer = new RecordBuffer(new FiscalFactory(), new Array(
+        	));
+        	//End Automatic Code generation
+        
+        	RUN.weakAssertEqualsIgnoreRegEx("Fiscal", FISCAL_IGNORE_REGEX, fiscalBuffer, FISCAL);
+        
+        	// DP ----------------------------------------
+        	//Begin Automatic Code generation: Module = Dp Id = 1 TestCase = 128 Date = 220518 11:19:29
+        	var lineRecordBuffer = new RecordBuffer(new LineRecordFactory(), new Array(
+        	));
+        	//End Automatic Code generation
+        	RUN.weakAssertEqualsIgnoreRegEx("Dp", DP_IGNORE_REGEX, lineRecordBuffer, DP);
+        	
+        	// SWITCH ----------------------------------------
+        	//Begin Automatic Code generation: Module = Switch Id = 1 TestCase = 128 Date = 220518 11:19:29
+        	var lineRecordBuffer = new RecordBuffer(new LineRecordFactory(), new Array(
+        	));
+        	//End Automatic Code generation
+        	RUN.weakAssertEqualsIgnoreRegEx("Switch", SWITCH_IGNORE_REGEX, lineRecordBuffer, SWITCH);
+        
+        	// IXRETAIL ----------------------------------------
+        	//Begin Automatic Code generation: Module = IXRetail Id = 1 TestCase = 128 Date = 220518 11:19:29
+        	var lineRecordBuffer = new RecordBuffer(new LineRecordFactory(), new Array(	));
+        	//End Automatic Code generation
+        	RUN.weakAssertEqualsIgnoreRegEx("IXRetail", DEFAULT_IXRETAIL_IGNORE_REGEX, lineRecordBuffer, IXRETAIL);
+        	
+        		// ACEPTA ----------------------------------------
+        	//Begin Automatic Code generation: Module = Acepta Id = 1 TestCase = 128 Date = 220518 11:19:30
+        	var lineRecordBuffer = new RecordBuffer(new LineRecordFactory(), new Array(	));
+        	//End Automatic Code generation
+        	RUN.weakAssertEqualsIgnoreRegEx("Acepta", DEFAULT_ACEPTA_IGNORE_REGEX, lineRecordBuffer, ACEPTA);
+        	
+        	RUN.weakAssertEquals(transactionNumber + 1, pos.getTransactionNumber());
+        
+        	weakAssertInsertTrxConsistency();
+        	
+        	RUN.assertWeak();
+        
+        	endTestRun();
+        </footer>
+    </outpufile>
+</root>
